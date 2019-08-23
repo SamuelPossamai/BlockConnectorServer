@@ -1,0 +1,3 @@
+[submodule "jsdragblocks"]
+	path = jsdragblocks
+	url = https://github.com/SamuelPossamai/jsdragblocks.git
