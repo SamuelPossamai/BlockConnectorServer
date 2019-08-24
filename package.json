@@ -1,0 +1,27 @@
+{
+  "name": "blockconnectorserver",
+  "version": "0.1.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SamuelPossamai/BlockConnectorServer.git"
+  },
+  "author": "SamuelPossamai",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/SamuelPossamai/BlockConnectorServer/issues"
+  },
+  "homepage": "https://github.com/SamuelPossamai/BlockConnectorServer#readme",
+  "dependencies": {
+    "handlebars": "^4.1.2",
+    "hapi": "^18.1.0",
+    "hapi-url": "^1.0.2",
+    "insert": "^1.0.1",
+    "vision": "^5.4.4"
+  }
+}
