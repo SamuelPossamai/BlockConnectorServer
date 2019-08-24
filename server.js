@@ -4,6 +4,7 @@ const Hapi = require('hapi');
 const Vision = require('vision');
 const Handlebars = require('handlebars');
 const Inert = require('inert');
+const HapiUrl = require('hapi-url');
 
 const server = new Hapi.Server({
     host: 'localhost',
@@ -15,7 +16,7 @@ server.route({
     path: '/',
     handler: (request, reply) => {
 
-        return reply.view('index');
+        return reply.view('index', {'url': HapiUrl.resolve(request, "/").slice(0, -1)});
     }
 });
 
