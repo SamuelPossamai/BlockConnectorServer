@@ -9,8 +9,10 @@
 </head>
 <body>
 
-    <p align="center" style="margin-left: 720px">
-        <button onclick="saveButtonOnClick()" style="margin-top: 100px; width: 80px;">Save</button>
+    <p align="center" style="margin-top: 100px; margin-left: 580px">
+        <button onclick="addButtonOnClick()" style="width: 80px;">Add</button>
+        <button onclick="deleteButtonOnClick()" style="width: 80px;">Delete</button>
+        <button onclick="saveButtonOnClick()" style="width: 80px;">Save</button>
     </p>
 
     <p align="center">
@@ -21,6 +23,20 @@
     <script>
         "use strict";
 
+        function addButtonOnClick() {
+
+            let block_name = window.prompt("Block name: ");
+            if(block_name != null) {
+
+                block_viewer.addBlock(new Block(block_name, 600, 300, 140, 65, 1, 1));
+            }
+        }
+
+        function deleteButtonOnClick() {
+
+            alert('Function not implemented');
+        }
+
         function saveButtonOnClick() {
 
             axios.post('/blocks/save', block_viewer.saveJSON(), {
@@ -29,7 +45,7 @@
                     "Accept": "application/json",
                     "Content-type": "application/json"
                 }
-            });
+            }).then(() => { alert('Saved'); });
         }
 
         var block_viewer = new CanvasBlockViewer('canvas');

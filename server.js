@@ -1,13 +1,13 @@
 'use strict'
 
-const Hapi = require('hapi');
-const Vision = require('vision');
-const Handlebars = require('handlebars');
-const Inert = require('inert');
+const hapi = require('hapi');
+const vision = require('vision');
+const handlebars = require('handlebars');
+const inert = require('inert');
 const fs = require('fs')
 const os = require('os');
 
-const server = new Hapi.Server({
+const server = new hapi.Server({
     host: 'localhost',
     port: 6178,
 });
@@ -61,15 +61,15 @@ function add_directory_routes() {
 const launch = async () => {
 
     try {
-        await server.register(Vision);
+        await server.register(vision);
 
         server.views({
-            engines: { html: Handlebars },
+            engines: { html: handlebars },
             relativeTo: __dirname,
             path: '.'
         });
 
-        await server.register(Inert);
+        await server.register(inert);
 
         add_directory_routes();
 
