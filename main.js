@@ -1,9 +1,9 @@
 'use strict'
 
-const hapi = require('hapi');
-const vision = require('vision');
+const hapi = require('@hapi/hapi');
+const vision = require('@hapi/vision');
+const inert = require('@hapi/inert');
 const handlebars = require('handlebars');
-const inert = require('inert');
 const fs = require('fs')
 const os = require('os');
 
@@ -26,7 +26,7 @@ server.route({
     path: '/blocks/save',
     handler: (request, reply) => {
 
-        fs.writeFile(os.homedir() + '/blockconnection_blocks.json',
+        fs.writeFile('blockjsonfiles/blocks.json',
                      JSON.stringify(request.payload),
                      (err) => { if(err) throw err; });
 
@@ -61,6 +61,9 @@ function add_directory_routes() {
 const launch = async () => {
 
     try {
+
+        fs.mkdir('blockjsonfiles', (err) => {});
+
         await server.register(vision);
 
         server.views({
