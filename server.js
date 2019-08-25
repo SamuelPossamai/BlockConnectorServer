@@ -4,7 +4,8 @@ const Hapi = require('hapi');
 const Vision = require('vision');
 const Handlebars = require('handlebars');
 const Inert = require('inert');
-const HapiUrl = require('hapi-url');
+const fs = require('fs')
+const os = require('os');
 
 const server = new Hapi.Server({
     host: 'localhost',
@@ -16,7 +17,20 @@ server.route({
     path: '/',
     handler: (request, reply) => {
 
-        return reply.view('index', {'url': HapiUrl.resolve(request, "/").slice(0, -1)});
+        return reply.view('index');
+    }
+});
+
+server.route({
+    method: 'POST',
+    path: '/blocks/save',
+    handler: (request, reply) => {
+
+        fs.writeFile(os.homedir() + '/blockconnection_blocks.json',
+                     JSON.stringify(request.payload),
+                     (err) => { if(err) throw err; });
+
+        return 'Saved';
     }
 });
 
@@ -28,6 +42,21 @@ server.route({
         return reply.file('jsdragblocks/blocks.js');
     }
 });
+
+function add_directory_routes() {
+
+    server.route({
+        method: 'GET',
+        path: '/static/axios/dist/{param}',
+        handler: {
+            directory: {
+                path: 'node_modules/axios/dist',
+                redirectToSlash: true,
+                index: true,
+            }
+        }
+    });
+}
 
 const launch = async () => {
 
@@ -41,6 +70,8 @@ const launch = async () => {
         });
 
         await server.register(Inert);
+
+        add_directory_routes();
 
         await server.start();
     } catch (err) {

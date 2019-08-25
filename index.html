@@ -3,13 +3,14 @@
 <head>
     <meta charset="UTF-8">
 
-    <script src="{{url}}/static/blocks.js"></script>
+    <script src="/static/blocks.js"></script>
+    <script src="/static/axios/dist/axios.js"></script>
 
 </head>
 <body>
 
     <p align="center" style="margin-left: 720px">
-        <button style="margin-top: 100px; width: 80px;">Save</button>
+        <button onclick="saveButtonOnClick()" style="margin-top: 100px; width: 80px;">Save</button>
     </p>
 
     <p align="center">
@@ -19,6 +20,17 @@
 
     <script>
         "use strict";
+
+        function saveButtonOnClick() {
+
+            axios.post('/blocks/save', block_viewer.saveJSON(), {
+
+                headers: {
+                    "Accept": "application/json",
+                    "Content-type": "application/json"
+                }
+            });
+        }
 
         var block_viewer = new CanvasBlockViewer('canvas');
 
