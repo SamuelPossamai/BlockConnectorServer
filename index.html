@@ -9,9 +9,9 @@
 </head>
 <body>
 
-    <p align="center" style="margin-top: 100px; margin-left: 580px">
+    <p align="center" style="margin-top: 100px; margin-left: 560px">
         <button onclick="addButtonOnClick()" style="width: 80px;">Add</button>
-        <button onclick="deleteButtonOnClick()" style="width: 80px;">Delete</button>
+        <button id="delete-button" onclick="deleteButtonOnClick()" style="width: 80px;" disabled>Delete</button>
         <button onclick="saveButtonOnClick()" style="width: 80px;">Save</button>
     </p>
 
@@ -28,13 +28,18 @@
             let block_name = window.prompt("Block name: ");
             if(block_name != null) {
 
-                block_viewer.addBlock(new Block(block_name, 600, 300, 140, 65, 1, 1));
+                if(!block_viewer.addBlock(new Block(block_name, 20, 20, 140, 65, 1, 1))) {
+
+                    alert(`There is already a block named '${block_name}'`)
+                }
             }
         }
 
         function deleteButtonOnClick() {
 
-            alert('Function not implemented');
+            block_viewer.remBlock(selected_block);
+
+            blockSelected(null);
         }
 
         function saveButtonOnClick() {
@@ -48,20 +53,29 @@
             }).then(() => { alert('Saved'); });
         }
 
-        var block_viewer = new CanvasBlockViewer('canvas');
+        function blockSelected(block) {
 
-        block_viewer.select_callback = function(block) {
+            selected_block = block;
 
-            console.log(block);
+            const delete_button = document.getElementById("delete-button");
+            const write_to_element = document.getElementById("write_to");
+
             if(block == null) {
 
-                document.getElementById("write_to").innerHTML = "None";
+                write_to_element.innerHTML = "None";
+                delete_button.disabled = true;
             }
             else {
 
-                document.getElementById("write_to").innerHTML = block.name;
+                write_to_element.innerHTML = block.name;
+                delete_button.disabled = false;
             }
         }
+
+        var block_viewer = new CanvasBlockViewer('canvas');
+        var selected_block = null;
+
+        block_viewer.select_callback = blockSelected;
 
         let block1 = new Block('name1', 100, 200, 70, 70, 0, 1);
 
