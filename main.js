@@ -34,15 +34,6 @@ server.route({
     }
 });
 
-server.route({
-    method: 'GET',
-    path: '/static/blocks.js',
-    handler: (request, reply) => {
-
-        return reply.file('jsdragblocks/blocks.js');
-    }
-});
-
 function add_directory_routes() {
 
     server.route({
@@ -51,6 +42,18 @@ function add_directory_routes() {
         handler: {
             directory: {
                 path: 'node_modules/axios/dist',
+                redirectToSlash: true,
+                index: true,
+            }
+        }
+    });
+
+    server.route({
+        method: 'GET',
+        path: '/static/{param*}',
+        handler: {
+            directory: {
+                path: 'static',
                 redirectToSlash: true,
                 index: true,
             }
@@ -69,7 +72,7 @@ const launch = async () => {
         server.views({
             engines: { html: handlebars },
             relativeTo: __dirname,
-            path: '.'
+            path: 'templates'
         });
 
         await server.register(inert);

@@ -1,0 +1,36 @@
+<!DOCTYPE html5>
+<html>
+<head>
+    <meta charset="UTF-8">
+
+    <style>
+
+        .blocks-control-button {
+
+            width: 100px;
+        }
+
+    </style>
+
+</head>
+<body>
+
+    <p align="center" style="margin-top: 100px; margin-left: 390px">
+        <button onclick="addButtonOnClick()" class="blocks-control-button">Add</button>
+        <button id="delete-button" onclick="deleteButtonOnClick()" class="blocks-control-button" disabled>Delete</button>
+        <button onclick="saveButtonOnClick()" class="blocks-control-button">Save</button>
+        <button onclick="downloadButtonOnClick()" class="blocks-control-button">Download</button>
+    </p>
+
+    <p align="center">
+        <canvas id="canvas" width="800" height="400" style="border:1px solid #000000;"></canvas>
+    </p>
+    <p id="write_to" style="text-align: center; margin-top: 20px;">None</p>
+
+    <a id="download-hidden-link" style="display:none"></a>
+
+    <script src="/static/jsdragblocks/blocks.js"></script>
+    <script src="/static/axios/dist/axios.js"></script>
+    <script src="/static/index.js"></script>
+</body>
+</html>
