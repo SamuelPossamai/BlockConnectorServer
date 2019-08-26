@@ -7,6 +7,8 @@ const handlebars = require('handlebars');
 const fs = require('fs')
 const os = require('os');
 
+var blocktypeconfig_json = null;
+
 const server = new hapi.Server({
     host: 'localhost',
     port: 6178,
@@ -18,6 +20,15 @@ server.route({
     handler: (request, reply) => {
 
         return reply.view('index');
+    }
+});
+
+server.route({
+    method: 'GET',
+    path: '/config/blocks/types',
+    handler: (request, reply) => {
+
+        return blocktypeconfig_json;
     }
 });
 
@@ -66,6 +77,12 @@ const launch = async () => {
     try {
 
         fs.mkdir('blockjsonfiles', (err) => {});
+        fs.readFile('blocktypeconfig.json', function read(err, data) {
+
+            if(err) throw err;
+
+            blocktypeconfig_json = JSON.parse(data);
+        });
 
         await server.register(vision);
 
@@ -80,7 +97,9 @@ const launch = async () => {
         add_directory_routes();
 
         await server.start();
+
     } catch (err) {
+
         console.error(err);
         process.exit(1);
     };

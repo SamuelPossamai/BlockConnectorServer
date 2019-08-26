@@ -15,17 +15,23 @@
 </head>
 <body>
 
-    <p align="center" style="margin-top: 100px; margin-left: 390px">
+    <div align="center" style="margin-top: 100px; margin-left: 390px">
         <button onclick="addButtonOnClick()" class="blocks-control-button">Add</button>
         <button id="delete-button" onclick="deleteButtonOnClick()" class="blocks-control-button" disabled>Delete</button>
         <button onclick="saveButtonOnClick()" class="blocks-control-button">Save</button>
         <button onclick="downloadButtonOnClick()" class="blocks-control-button">Download</button>
-    </p>
+    </div>
 
-    <p align="center">
+    <div align="center" style="margin-top: 5px;">
         <canvas id="canvas" width="800" height="400" style="border:1px solid #000000;"></canvas>
-    </p>
-    <p id="write_to" style="text-align: center; margin-top: 20px;">None</p>
+    </div>
+    <div id="block-name" style="text-align: center; margin-top: 20px;">None</div>
+
+    <div align="center" style="text-align: center; margin-top: 20px;">
+        Block type:&nbsp;<font id="block-type" color="gray">None</font>
+    </div>
+
+    <div id="block-config" align="center"></div>
 
     <a id="download-hidden-link" style="display:none"></a>
 

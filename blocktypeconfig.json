@@ -1,0 +1,33 @@
+{
+    "Type-A": {
+
+        "n_input": 1,
+        "n_output": 2,
+        "config": {
+
+            "c1": "String",
+            "c2": "Integer",
+            "c3": "Real"
+        }
+    },
+    "Type-B": {
+
+        "n_input": 1,
+        "n_output": 1,
+        "config": {
+
+            "c1": "Integer",
+            "c2": "Integer"
+        }
+    },
+    "Type-C": {
+
+        "n_input": 2,
+        "n_output": 0,
+        "config": {
+
+            "config-a": "String",
+            "config-b": "String"
+        }
+    }
+}
