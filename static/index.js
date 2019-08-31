@@ -67,8 +67,6 @@ function addButtonOnClick() {
 
     const block_type = configblock_types[block_type_name];
 
-    block_type.name = block_type_name;
-
     const block_name = prompt("Block name: ");
     if(block_name != null) {
 
@@ -166,6 +164,34 @@ function configInputOnChange(prop, new_input_el_id) {
     selected_block.setConfig(prop, element.value);
 }
 
+function createBlock(block_json) {
+
+    let new_block =  new DefaultConfBlock(block_json.name, configblock_types[block_json.type],
+                                          block_json.x, block_json.y, block_json.width,
+                                          block_json.height, block_json.inputs,
+                                          block_json.outputs);
+
+    if(block_json.config != null) {
+
+        for(let prop in block_json.config) {
+            if(block_json.config.hasOwnProperty(prop)) {
+                new_block.setConfig(prop, block_json.config[prop]);
+            }
+        }
+    }
+
+    return new_block;
+}
+
+function loadBlocks() {
+
+    axios.get('/blocks/load').then((response) => {
+
+        block_viewer.loadJSON(response.data, false, {create_block: createBlock});
+
+    }, (error) => {})
+}
+
 var block_viewer = new CanvasBlockViewer('canvas');
 var selected_block = null;
 var configblock_types = null;
@@ -175,4 +201,12 @@ block_viewer.select_callback = blockSelected;
 axios.get('/config/blocks/types').then((response) => {
 
     configblock_types = response.data;
+
+    for(let prop in configblock_types) {
+        if(configblock_types.hasOwnProperty(prop)) {
+            configblock_types[prop].name = prop;
+        }
+    }
+
+    loadBlocks();
 })

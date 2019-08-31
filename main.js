@@ -33,6 +33,15 @@ server.route({
 });
 
 server.route({
+    method: 'GET',
+    path: '/blocks/load',
+    handler: async (request, reply) => {
+
+        return reply.file('blockjsonfiles/blocks.json');
+    }
+});
+
+server.route({
     method: 'POST',
     path: '/blocks/save',
     handler: (request, reply) => {
