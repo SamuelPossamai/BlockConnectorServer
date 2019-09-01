@@ -45,24 +45,22 @@ class DefaultConfBlock extends Block {
     }
 }
 
-function hideSelectBlockTypeModal() {
+function setElementVisibility(element, visibility) {
 
-    const select_type_modal = document.getElementById("sel-block-type-root");
+    const select_type_modal = document.getElementById(element);
 
-    select_type_modal.style.visibility = "hidden";
+    select_type_modal.style.visibility = visibility;
 }
 
-function addButtonOnClickStep2() {
-
-    hideSelectBlockTypeModal();
+function addBlock() {
 
     const select_element = document.getElementById("block-type-select");
+    const input_element = document.getElementById("block-name-input");
 
-    let block_type_name = select_element.options[select_element.selectedIndex].value;
-
+    const block_type_name = select_element.options[select_element.selectedIndex].value;
     const block_type = configblock_types[block_type_name];
+    const block_name = input_element.value;
 
-    const block_name = prompt("Block name: ");
     if(block_name != null) {
 
         const new_block = new DefaultConfBlock(block_name, block_type, 20, 20, 90, 50,
@@ -73,6 +71,12 @@ function addButtonOnClickStep2() {
             alert(`There is already a block named '${block_name}'`)
         }
     }
+}
+
+function blockTypeSelectOnClick() {
+
+    setElementVisibility('sel-block-type-root', 'hidden');
+    setElementVisibility('sel-block-name-root', 'visible')
 }
 
 function addButtonOnClick() {

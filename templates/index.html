@@ -39,15 +39,14 @@
             margin: 0 0 0 0;
         }
 
-        #sel-block-type-div {
+        #sel-block-name-div, #sel-block-type-div {
 
             text-align: center;
-            vertical-align: middle;
-            --modal-window-width: 30%;
-            --modal-window-height: 30%;
+            --modal-window-width: 20%;
+            --modal-window-height: 20%;
         }
 
-        #sel-block-type-internal {
+        #sel-block-name-internal, #sel-block-type-internal {
 
             position: relative;
             top: 50%;
@@ -64,11 +63,23 @@
     <div id="sel-block-type-root" class="modal center-content">
         <div id="sel-block-type-div" class="modal-window">
             <div id="sel-block-type-internal">
-                <p style="margin: 0 0 0 0;">Select block type:</p>
+                <p style="margin: 0 0 0 0;">Select block type</p>
                 <select id="block-type-select" style="margin-top: 5%; margin-bottom: 5%;"></select>
                 <br/>
-                <button onclick="hideSelectBlockTypeModal()">Cancel</button>
-                <button onclick="addButtonOnClickStep2()">Select</button>
+                <button onclick="setElementVisibility('sel-block-type-root', 'hidden')">Cancel</button>
+                <button onclick="blockTypeSelectOnClick()">Select</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="sel-block-name-root" class="modal center-content">
+        <div id="sel-block-name-div" class="modal-window">
+            <div id="sel-block-name-internal">
+                <p style="margin: 0 0 0 0;">Select block name</p>
+                <input id="block-name-input" type="text" style="margin-bottom: 5%; margin-top:5%;"></input>
+                <br/>
+                <button onclick="setElementVisibility('sel-block-name-root', 'hidden')">Cancel</button>
+                <button onclick="addBlock(); setElementVisibility('sel-block-name-root', 'hidden')">Select</button>
             </div>
         </div>
     </div>
