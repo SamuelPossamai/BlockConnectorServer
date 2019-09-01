@@ -10,10 +10,68 @@
             width: 100px;
         }
 
+        .modal {
+
+            visibility: hidden;
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(150, 150, 150, 0.5);
+            padding: 0 0 0 0;
+            margin: 0 0 0 0;
+            top: 0;
+            left: 0;
+        }
+
+        .modal-window {
+
+            overflow: hidden;
+            position: absolute;
+            background-color: white;
+            width: var(--modal-window-width);
+            height: var(--modal-window-height);
+            left: calc(50% - var(--modal-window-width)/2);
+            top: calc(50% - var(--modal-window-height)/2);
+            --modal-window-width: 20%;
+            --modal-window-height: 20%;
+            border-radius: 10%;
+            padding: 0 0 0 0;
+            margin: 0 0 0 0;
+        }
+
+        #sel-block-type-div {
+
+            text-align: center;
+            vertical-align: middle;
+            --modal-window-width: 30%;
+            --modal-window-height: 30%;
+        }
+
+        #sel-block-type-internal {
+
+            position: relative;
+            top: 50%;
+            transform: translateY(-50%);
+            margin: 0 0 0 0;
+            padding: 0 0 0 0;
+        }
+
     </style>
 
 </head>
 <body>
+
+    <div id="sel-block-type-root" class="modal center-content">
+        <div id="sel-block-type-div" class="modal-window">
+            <div id="sel-block-type-internal">
+                <p style="margin: 0 0 0 0;">Select block type:</p>
+                <select id="block-type-select" style="margin-top: 5%; margin-bottom: 5%;"></select>
+                <br/>
+                <button onclick="hideSelectBlockTypeModal()">Cancel</button>
+                <button onclick="addButtonOnClickStep2()">Select</button>
+            </div>
+        </div>
+    </div>
 
     <div align="center" style="margin-top: 100px; margin-left: 390px">
         <button onclick="addButtonOnClick()" class="blocks-control-button">Add</button>

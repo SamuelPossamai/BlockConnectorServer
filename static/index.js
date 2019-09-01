@@ -45,25 +45,20 @@ class DefaultConfBlock extends Block {
     }
 }
 
-function addButtonOnClick() {
+function hideSelectBlockTypeModal() {
 
-    const json_prop_arr = [];
-    for(let prop in configblock_types) {
-        if(configblock_types.hasOwnProperty(prop)) {
-            json_prop_arr.push(prop);
-        }
-    }
+    const select_type_modal = document.getElementById("sel-block-type-root");
 
-    const blocktype_prompt_string = `Block type('${json_prop_arr.join("', '")}'): `;
+    select_type_modal.style.visibility = "hidden";
+}
 
-    let block_type_name = prompt(blocktype_prompt_string);
+function addButtonOnClickStep2() {
 
-    while(block_type_name != null && !json_prop_arr.includes(block_type_name)) {
+    hideSelectBlockTypeModal();
 
-        block_type_name = prompt(blocktype_prompt_string, block_type_name);
-    }
+    const select_element = document.getElementById("block-type-select");
 
-    if(block_type_name == null) return;
+    let block_type_name = select_element.options[select_element.selectedIndex].value;
 
     const block_type = configblock_types[block_type_name];
 
@@ -78,6 +73,13 @@ function addButtonOnClick() {
             alert(`There is already a block named '${block_name}'`)
         }
     }
+}
+
+function addButtonOnClick() {
+
+    const select_type_modal = document.getElementById("sel-block-type-root");
+
+    select_type_modal.style.visibility = "visible";
 }
 
 function deleteButtonOnClick() {
@@ -202,9 +204,17 @@ axios.get('/config/blocks/types').then((response) => {
 
     configblock_types = response.data;
 
+    const blocktype_select_element = document.getElementById("block-type-select");
     for(let prop in configblock_types) {
         if(configblock_types.hasOwnProperty(prop)) {
             configblock_types[prop].name = prop;
+
+            const new_option_element = document.createElement('option');
+
+            new_option_element.setAttribute('value', prop);
+            new_option_element.innerHTML = prop
+
+            blocktype_select_element.appendChild(new_option_element);
         }
     }
 
