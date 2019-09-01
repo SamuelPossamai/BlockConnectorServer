@@ -76,14 +76,7 @@ function addBlock() {
 function blockTypeSelectOnClick() {
 
     setElementVisibility('sel-block-type-root', 'hidden');
-    setElementVisibility('sel-block-name-root', 'visible')
-}
-
-function addButtonOnClick() {
-
-    const select_type_modal = document.getElementById("sel-block-type-root");
-
-    select_type_modal.style.visibility = "visible";
+    setElementVisibility('sel-block-name-root', 'visible');
 }
 
 function deleteButtonOnClick() {
@@ -201,6 +194,14 @@ function loadBlocks() {
 var block_viewer = new CanvasBlockViewer('canvas');
 var selected_block = null;
 var configblock_types = null;
+
+document.onkeyup = function(event) {
+
+    event = event || window.event;
+    if(event.keyCode == 46) {
+        if(selected_block != null) deleteButtonOnClick();
+    }
+};
 
 block_viewer.select_callback = blockSelected;
 
