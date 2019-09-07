@@ -23,6 +23,6 @@
     "@hapi/vision": "^5.5.3",
     "axios": "^0.19.0",
     "handlebars": "^4.1.2",
-    "jsdragblocks": "^0.1.0"
+    "jsdragblocks": "^0.1.1"
   }
 }

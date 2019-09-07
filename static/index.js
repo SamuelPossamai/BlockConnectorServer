@@ -112,7 +112,7 @@ function uploadFileSelected(event) {
 
     freader.onload = (evt) => {
 
-        block_viewer.loadJSON(JSON.parse(evt.target.result), false, {
+        block_viewer.loadJSON(evt.target.result, true, {
             create_block: createBlock,
             clear_before: true
         });
