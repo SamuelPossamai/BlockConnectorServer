@@ -70,6 +70,14 @@ function add_directory_routes() {
 
     server.route({
         method: 'GET',
+        path: '/static/jsdragblocks/blocks.js',
+        handler: {
+            file: 'node_modules/jsdragblocks/src/blocks.js'
+        }
+    });
+
+    server.route({
+        method: 'GET',
         path: '/static/{param*}',
         handler: {
             directory: {
