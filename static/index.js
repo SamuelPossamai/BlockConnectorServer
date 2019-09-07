@@ -99,11 +99,31 @@ function saveButtonOnClick() {
 
 function downloadButtonOnClick() {
 
-    var download_data = "data:text/json;charset=utf-8," + encodeURIComponent(block_viewer.saveJSON());
-    var download_hidden_link = document.getElementById('download-hidden-link');
+    let download_data = "data:text/json;charset=utf-8," + encodeURIComponent(block_viewer.saveJSON());
+    let download_hidden_link = document.getElementById('download-hidden-link');
     download_hidden_link.setAttribute("href", download_data);
     download_hidden_link.setAttribute("download", "blocks.json");
     download_hidden_link.click();
+}
+
+function uploadFileSelected(event) {
+
+    let freader = new FileReader();
+
+    freader.onload = (evt) => {
+
+        block_viewer.loadJSON(JSON.parse(evt.target.result), false, {
+            create_block: createBlock,
+            clear_before: true
+        });
+    }
+
+    freader.readAsText(event.target.files[0], 'UTF-8');
+}
+
+function uploadButtonOnClick() {
+
+    document.getElementById('upload-file-hidden-input').click();
 }
 
 function blockSelected(block) {
