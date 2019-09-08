@@ -211,6 +211,31 @@ function loadBlocks() {
     }, (error) => {})
 }
 
+function loadConsoleText() {
+
+    if(typeof loadConsoleText.line_number == 'undefined') {
+
+        loadConsoleText.line_number = 0;
+    }
+
+    axios.get(`/console/read/after/${loadConsoleText.line_number}`).then((response) => {
+
+        let element = document.getElementById('console-modal-text');
+        let console_default = response.data.console.default;
+
+        if(console_default != null) {
+
+            if(element.innerHTML != '') {
+                element.innerHTML += '\n';
+            }
+            element.innerHTML += console_default;
+            loadConsoleText.line_number = response.data.current_line.default;
+            element.scrollTop = element.scrollHeight;
+        }
+
+    }, (error) => {})
+}
+
 var block_viewer = new CanvasBlockViewer('canvas');
 var selected_block = null;
 var configblock_types = null;
@@ -245,3 +270,6 @@ axios.get('/config/blocks/types').then((response) => {
 
     loadBlocks();
 })
+
+loadConsoleText();
+setInterval(loadConsoleText, 1500);

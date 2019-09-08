@@ -32,12 +32,19 @@
         </div>
     </div>
 
-    <div align="center" style="margin-top: 100px; margin-left: 285px">
+    <div id="console-modal-root" onclick="event.target.style.visibility = 'hidden'" class="modal center-content">
+        <div id="console-modal-window" onclick="event.stopPropagation()" class="modal-window">
+            <textarea id="console-modal-text" style="resize: none;" readonly></textarea>
+        </div>
+    </div>
+
+    <div align="center" style="margin-top: 100px; margin-left: 180px">
         <button onclick="setElementVisibility('sel-block-type-root', 'visible')" class="blocks-control-button">Add</button>
         <button id="delete-button" onclick="deleteButtonOnClick()" class="blocks-control-button" disabled>Delete</button>
         <button onclick="saveButtonOnClick()" class="blocks-control-button">Save</button>
         <button onclick="downloadButtonOnClick()" class="blocks-control-button">Download</button>
         <button onclick="uploadButtonOnClick()" class="blocks-control-button">Upload</button>
+        <button onclick="setElementVisibility('console-modal-root', 'visible')" class="blocks-control-button">Console</button>
     </div>
 
     <div align="center" style="margin-top: 5px;">

@@ -9,9 +9,75 @@ const os = require('os');
 
 var blocktypeconfig_json = null;
 
+const CONSOLE_MAX_LINES = 100;
+const console_print_lines = [];
+var console_written_lines = 0;
+
 const server = new hapi.Server({
     host: 'localhost',
     port: 6178,
+});
+
+server.route({
+    method: 'POST',
+    path: '/console/write',
+    handler: (request, reply) => {
+
+        if(console_print_lines.length >= CONSOLE_MAX_LINES) {
+
+            console_print_lines.shift();
+        }
+
+        console_print_lines.push(request.payload);
+
+        console_written_lines++;
+
+        return 'wrote';
+    }
+});
+
+server.route({
+    method: 'GET',
+    path: '/console/read',
+    handler: (request, reply) => {
+
+        return {
+
+            default: console_print_lines.join('\n')
+        };
+    }
+});
+
+server.route({
+    method: 'GET',
+    path: '/console/read/after/{update_ntimes}',
+    handler: (request, reply) => {
+
+        let new_lines_qtd = console_written_lines - parseInt(
+            request.params.update_ntimes, 10);
+
+        if(new_lines_qtd <= 0) {
+
+            return {
+                console: {},
+                line: {}
+            }
+        }
+
+        return {
+
+            console: {
+
+                default: console_print_lines.slice(
+                    console_print_lines.length - new_lines_qtd,
+                    console_print_lines.length).join('\n')
+            },
+            current_line: {
+
+                default: console_written_lines
+            }
+        };
+    }
 });
 
 server.route({
