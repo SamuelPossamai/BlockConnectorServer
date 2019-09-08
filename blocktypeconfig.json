@@ -7,7 +7,8 @@
 
             "c1": "String",
             "c2": "Integer",
-            "c3": "Real"
+            "c3": "Real",
+            "c4": "Text(80, 10)"
         }
     },
     "Type-B": {

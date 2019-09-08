@@ -10,7 +10,15 @@ class DefaultConfBlock extends Block {
 
         for(let prop in type.config) {
             if(type.config.hasOwnProperty(prop)) {
-                this.config[prop] = type.config[prop] == 'String' ? '' : 0;
+                switch(type.config[prop]) {
+
+                    case 'Integer':
+                    case 'Real':
+                        this.config[prop] = 0;
+                        break;
+                    default:
+                        this.config[prop] = '';
+                }
             }
         }
     }
@@ -158,17 +166,51 @@ function blockSelected(block) {
 
                 block_config_element.appendChild(new_p_element);
 
-                const new_input_element = document.createElement('input');
+                const prop_type_all = block.type.config[prop];
+                const prop_type_split = prop_type_all.split('(');
+
+                const prop_type = prop_type_split[0];
+
+                let prop_type_args;
+
+                if(prop_type_split.length == 2) {
+
+                    prop_type_args = prop_type_split[1].slice(0, -1).split(',');
+                }
+                else prop_type_args = [];
+
+                let new_input_element;
+                if(prop_type == 'Text') {
+
+                    new_input_element = document.createElement('textarea');
+
+                    new_input_element.setAttribute
+
+                    let cols = 80;
+                    let rows = 10;
+                    if(prop_type_args.length >= 1) cols = prop_type_args[0];
+                    if(prop_type_args.length >= 2) rows = prop_type_args[1];
+
+                    new_input_element.setAttribute('cols', cols);
+                    new_input_element.setAttribute('rows', rows);
+
+                    new_input_element.style.resize = 'none';
+                }
+                else {
+
+                    new_input_element = document.createElement('input');
+                }
 
                 const new_input_el_id = `block-config-input-${prop}`;
 
                 new_input_element.setAttribute('id', new_input_el_id);
                 new_input_element.setAttribute('type', 'text');
-                new_input_element.setAttribute('value', block.config[prop]);
+                new_input_element.value = block.config[prop];
                 new_input_element.setAttribute(
                     'oninput', `configInputOnChange('${prop}', '${new_input_el_id}');`);
 
-                new_p_element.appendChild(new_input_element);
+                if(prop_type == 'Text') block_config_element.appendChild(new_input_element);
+                else new_p_element.appendChild(new_input_element);
             }
         }
 
