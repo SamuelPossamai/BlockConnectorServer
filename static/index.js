@@ -201,6 +201,9 @@ function blockSelected(block) {
                     new_input_element = document.createElement('input');
                 }
 
+                if(prop_type == 'Integer') new_input_element.pattern = '^[-+]?[0-9]+$';
+                if(prop_type == 'Real') new_input_element.pattern = '^[-+]?([0-9]+[.]?[0-9]*|[.][0-9]+)$';
+
                 const new_input_el_id = `block-config-input-${prop}`;
 
                 new_input_element.setAttribute('id', new_input_el_id);
