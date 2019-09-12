@@ -13,9 +13,40 @@ const CONSOLE_MAX_LINES = 100;
 const console_print_lines = [];
 var console_written_lines = 0;
 
+var server_host = '127.0.0.1';
+var server_port = 6178;
+
+function parseArguments() {
+
+    const package_json = JSON.parse(fs.readFileSync('package.json'));
+    const ArgumentParser = require('argparse').ArgumentParser;
+
+    const parser = new ArgumentParser({
+
+        version: package_json.version,
+        addHelp: true,
+        description: package_json.description
+    });
+
+    parser.addArgument([ '-H', '--host' ], {
+        help: 'Server host ip'
+    });
+
+    parser.addArgument([ '-p', '--port' ], {
+        help: 'Server network port'
+    });
+
+    let args = parser.parseArgs();
+
+    if(args.host) server_host = args.host;
+    if(args.port) server_port = args.port;
+}
+
+parseArguments();
+
 const server = new hapi.Server({
-    host: 'localhost',
-    port: 6178,
+    host: server_host,
+    port: server_port,
 });
 
 server.route({
