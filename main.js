@@ -4,7 +4,7 @@ const hapi = require('@hapi/hapi');
 const vision = require('@hapi/vision');
 const inert = require('@hapi/inert');
 const handlebars = require('handlebars');
-const fs = require('fs')
+const fs = require('fs');
 const os = require('os');
 
 var blocktypeconfig_json = null;
@@ -15,6 +15,8 @@ var console_written_lines = 0;
 
 var server_host = '127.0.0.1';
 var server_port = 6178;
+
+var blocktypeconfig_path = 'blocktypeconfig.json'
 
 function parseArguments() {
 
@@ -36,10 +38,17 @@ function parseArguments() {
         help: 'Server network port'
     });
 
+    parser.addArgument([ '-t', '--blocktypeconfig-file' ], {
+        help: 'Specify where is the file with the block types information'
+    });
+
     let args = parser.parseArgs();
 
     if(args.host) server_host = args.host;
     if(args.port) server_port = args.port;
+    if(args.blocktypeconfig_file) {
+        blocktypeconfig_path = args.blocktypeconfig_file;
+    }
 }
 
 parseArguments();
@@ -132,7 +141,7 @@ server.route({
 server.route({
     method: 'GET',
     path: '/blocks/load',
-    handler: async (request, reply) => {
+    handler: (request, reply) => {
 
         return reply.file('blockjsonfiles/blocks.json');
     }
@@ -191,7 +200,7 @@ const launch = async () => {
     try {
 
         fs.mkdir('blockjsonfiles', (err) => {});
-        fs.readFile('blocktypeconfig.json', function read(err, data) {
+        fs.readFile(blocktypeconfig_path, function read(err, data) {
 
             if(err) throw err;
 
