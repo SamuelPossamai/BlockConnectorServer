@@ -38,13 +38,15 @@
         </div>
     </div>
 
-    <div align="center" style="margin-top: 100px; margin-left: 180px">
+    <div align="center" style="margin-top: 100px; margin-left: 90px">
         <button onclick="setElementVisibility('sel-block-type-root', 'visible')" class="blocks-control-button">Add</button>
         <button id="delete-button" onclick="deleteButtonOnClick()" class="blocks-control-button" disabled>Delete</button>
         <button onclick="saveButtonOnClick()" class="blocks-control-button">Save</button>
         <button onclick="downloadButtonOnClick()" class="blocks-control-button">Download</button>
         <button onclick="uploadButtonOnClick()" class="blocks-control-button">Upload</button>
         <button onclick="setElementVisibility('console-modal-root', 'visible')" class="blocks-control-button">Console</button>
+        <button onclick="block_viewer.zoomIn(1.1)" class="zoom-button">+</button>
+        <button onclick="block_viewer.zoomOut(1.1)" class="zoom-button">-</button>
     </div>
 
     <div align="center" style="margin-top: 5px;">
