@@ -9,7 +9,11 @@
             "c2": "Integer",
             "c3": "Real",
             "c4": "Text(80, 10)"
-        }
+        },
+        "bg_color": "yellow",
+        "fg_color": "blue",
+        "sel_border_color": "green",
+        "border_color": "#EEE"
     },
     "Type-B": {
 

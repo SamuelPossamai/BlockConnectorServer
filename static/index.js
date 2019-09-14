@@ -21,6 +21,14 @@ class DefaultConfBlock extends Block {
                 }
             }
         }
+
+        if(type.bg_color != null) this.bg_color = type.bg_color;
+        if(type.fg_color != null) this.fg_color = type.fg_color;
+        if(type.border_color != null) this.border_color = type.border_color;
+        if(type.sel_border_color != null) {
+
+            this.sel_border_color = type.sel_border_color;
+        }
     }
 
     setConfig(prop, value) {
