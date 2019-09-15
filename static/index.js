@@ -113,6 +113,11 @@ function saveButtonOnClick() {
     }).then((response) => { alert('Saved'); }, (error) => { alert('Failed to save'); });
 }
 
+function runButtonOnCLick() {
+
+    axios.get('/blocks/run');
+}
+
 function downloadButtonOnClick() {
 
     let download_data = "data:text/json;charset=utf-8," + encodeURIComponent(block_viewer.saveJSON());

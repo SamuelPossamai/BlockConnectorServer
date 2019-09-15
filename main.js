@@ -6,6 +6,7 @@ const inert = require('@hapi/inert');
 const handlebars = require('handlebars');
 const fs = require('fs');
 const os = require('os');
+const child_process = require('child_process');
 
 var blocktypeconfig_json = null;
 
@@ -16,7 +17,8 @@ var console_written_lines = 0;
 var server_host = '127.0.0.1';
 var server_port = 6178;
 
-var blocktypeconfig_path = 'blocktypeconfig.json'
+var blocktypeconfig_path = 'blocktypeconfig.json';
+var blocks_run_command = null;
 
 function parseArguments() {
 
@@ -42,6 +44,10 @@ function parseArguments() {
         help: 'Specify where is the file with the block types information'
     });
 
+    parser.addArgument([ '-r', '--run-command' ], {
+        help: 'Specify the command that will run when the \'run\' is pressed'
+    });
+
     let args = parser.parseArgs();
 
     if(args.host) server_host = args.host;
@@ -49,6 +55,7 @@ function parseArguments() {
     if(args.blocktypeconfig_file) {
         blocktypeconfig_path = args.blocktypeconfig_file;
     }
+    if(args.run_command) blocks_run_command = args.run_command;
 }
 
 parseArguments();
@@ -135,6 +142,19 @@ server.route({
     handler: (request, reply) => {
 
         return blocktypeconfig_json;
+    }
+});
+
+server.route({
+    method: 'GET',
+    path: '/blocks/run',
+    handler: (request, reply) => {
+
+        if(blocks_run_command != null) {
+            child_process.exec(blocks_run_command).unref();
+        }
+
+        return 'success';
     }
 });
 
